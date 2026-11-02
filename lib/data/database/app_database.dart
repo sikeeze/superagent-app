@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'tables.dart';
+import 'task_tables.dart';
 
 part 'app_database.g.dart';
 
@@ -29,7 +30,7 @@ class MessageHit {
 /// - WAL mode + indeks untuk throughput baca/tulis
 /// - foreign key cascade: hapus percakapan = hapus pesannya
 /// - versi migrate naik satu per satu; tidak ada destructive migration
-@DriftDatabase(tables: [Conversations, Messages])
+@DriftDatabase(tables: [Conversations, Messages, Tasks])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

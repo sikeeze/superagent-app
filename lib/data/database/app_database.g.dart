@@ -1078,16 +1078,755 @@ class MessagesCompanion extends UpdateCompanion<Message> {
   }
 }
 
+class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TasksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _promptMeta = const VerificationMeta('prompt');
+  @override
+  late final GeneratedColumn<String> prompt = GeneratedColumn<String>(
+    'prompt',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _skillMeta = const VerificationMeta('skill');
+  @override
+  late final GeneratedColumn<String> skill = GeneratedColumn<String>(
+    'skill',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('once'),
+  );
+  static const VerificationMeta _intervalSecMeta = const VerificationMeta(
+    'intervalSec',
+  );
+  @override
+  late final GeneratedColumn<int> intervalSec = GeneratedColumn<int>(
+    'interval_sec',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _cronExprMeta = const VerificationMeta(
+    'cronExpr',
+  );
+  @override
+  late final GeneratedColumn<String> cronExpr = GeneratedColumn<String>(
+    'cron_expr',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _nextRunAtMeta = const VerificationMeta(
+    'nextRunAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> nextRunAt = GeneratedColumn<DateTime>(
+    'next_run_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _lastRunAtMeta = const VerificationMeta(
+    'lastRunAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastRunAt = GeneratedColumn<DateTime>(
+    'last_run_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('pending'),
+  );
+  static const VerificationMeta _failCountMeta = const VerificationMeta(
+    'failCount',
+  );
+  @override
+  late final GeneratedColumn<int> failCount = GeneratedColumn<int>(
+    'fail_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lastErrorMeta = const VerificationMeta(
+    'lastError',
+  );
+  @override
+  late final GeneratedColumn<String> lastError = GeneratedColumn<String>(
+    'last_error',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    prompt,
+    skill,
+    kind,
+    intervalSec,
+    cronExpr,
+    nextRunAt,
+    lastRunAt,
+    status,
+    failCount,
+    lastError,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tasks';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Task> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('prompt')) {
+      context.handle(
+        _promptMeta,
+        prompt.isAcceptableOrUnknown(data['prompt']!, _promptMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_promptMeta);
+    }
+    if (data.containsKey('skill')) {
+      context.handle(
+        _skillMeta,
+        skill.isAcceptableOrUnknown(data['skill']!, _skillMeta),
+      );
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    }
+    if (data.containsKey('interval_sec')) {
+      context.handle(
+        _intervalSecMeta,
+        intervalSec.isAcceptableOrUnknown(
+          data['interval_sec']!,
+          _intervalSecMeta,
+        ),
+      );
+    }
+    if (data.containsKey('cron_expr')) {
+      context.handle(
+        _cronExprMeta,
+        cronExpr.isAcceptableOrUnknown(data['cron_expr']!, _cronExprMeta),
+      );
+    }
+    if (data.containsKey('next_run_at')) {
+      context.handle(
+        _nextRunAtMeta,
+        nextRunAt.isAcceptableOrUnknown(data['next_run_at']!, _nextRunAtMeta),
+      );
+    }
+    if (data.containsKey('last_run_at')) {
+      context.handle(
+        _lastRunAtMeta,
+        lastRunAt.isAcceptableOrUnknown(data['last_run_at']!, _lastRunAtMeta),
+      );
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('fail_count')) {
+      context.handle(
+        _failCountMeta,
+        failCount.isAcceptableOrUnknown(data['fail_count']!, _failCountMeta),
+      );
+    }
+    if (data.containsKey('last_error')) {
+      context.handle(
+        _lastErrorMeta,
+        lastError.isAcceptableOrUnknown(data['last_error']!, _lastErrorMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Task map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Task(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      prompt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}prompt'],
+      )!,
+      skill: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}skill'],
+      ),
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
+      intervalSec: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}interval_sec'],
+      ),
+      cronExpr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cron_expr'],
+      ),
+      nextRunAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}next_run_at'],
+      ),
+      lastRunAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_run_at'],
+      ),
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      failCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}fail_count'],
+      )!,
+      lastError: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}last_error'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $TasksTable createAlias(String alias) {
+    return $TasksTable(attachedDatabase, alias);
+  }
+}
+
+class Task extends DataClass implements Insertable<Task> {
+  final int id;
+  final String title;
+  final String prompt;
+  final String? skill;
+  final String kind;
+  final int? intervalSec;
+  final String? cronExpr;
+  final DateTime? nextRunAt;
+  final DateTime? lastRunAt;
+  final String status;
+  final int failCount;
+  final String? lastError;
+  final DateTime createdAt;
+  const Task({
+    required this.id,
+    required this.title,
+    required this.prompt,
+    this.skill,
+    required this.kind,
+    this.intervalSec,
+    this.cronExpr,
+    this.nextRunAt,
+    this.lastRunAt,
+    required this.status,
+    required this.failCount,
+    this.lastError,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['title'] = Variable<String>(title);
+    map['prompt'] = Variable<String>(prompt);
+    if (!nullToAbsent || skill != null) {
+      map['skill'] = Variable<String>(skill);
+    }
+    map['kind'] = Variable<String>(kind);
+    if (!nullToAbsent || intervalSec != null) {
+      map['interval_sec'] = Variable<int>(intervalSec);
+    }
+    if (!nullToAbsent || cronExpr != null) {
+      map['cron_expr'] = Variable<String>(cronExpr);
+    }
+    if (!nullToAbsent || nextRunAt != null) {
+      map['next_run_at'] = Variable<DateTime>(nextRunAt);
+    }
+    if (!nullToAbsent || lastRunAt != null) {
+      map['last_run_at'] = Variable<DateTime>(lastRunAt);
+    }
+    map['status'] = Variable<String>(status);
+    map['fail_count'] = Variable<int>(failCount);
+    if (!nullToAbsent || lastError != null) {
+      map['last_error'] = Variable<String>(lastError);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  TasksCompanion toCompanion(bool nullToAbsent) {
+    return TasksCompanion(
+      id: Value(id),
+      title: Value(title),
+      prompt: Value(prompt),
+      skill: skill == null && nullToAbsent
+          ? const Value.absent()
+          : Value(skill),
+      kind: Value(kind),
+      intervalSec: intervalSec == null && nullToAbsent
+          ? const Value.absent()
+          : Value(intervalSec),
+      cronExpr: cronExpr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cronExpr),
+      nextRunAt: nextRunAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nextRunAt),
+      lastRunAt: lastRunAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastRunAt),
+      status: Value(status),
+      failCount: Value(failCount),
+      lastError: lastError == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastError),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory Task.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Task(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      prompt: serializer.fromJson<String>(json['prompt']),
+      skill: serializer.fromJson<String?>(json['skill']),
+      kind: serializer.fromJson<String>(json['kind']),
+      intervalSec: serializer.fromJson<int?>(json['intervalSec']),
+      cronExpr: serializer.fromJson<String?>(json['cronExpr']),
+      nextRunAt: serializer.fromJson<DateTime?>(json['nextRunAt']),
+      lastRunAt: serializer.fromJson<DateTime?>(json['lastRunAt']),
+      status: serializer.fromJson<String>(json['status']),
+      failCount: serializer.fromJson<int>(json['failCount']),
+      lastError: serializer.fromJson<String?>(json['lastError']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String>(title),
+      'prompt': serializer.toJson<String>(prompt),
+      'skill': serializer.toJson<String?>(skill),
+      'kind': serializer.toJson<String>(kind),
+      'intervalSec': serializer.toJson<int?>(intervalSec),
+      'cronExpr': serializer.toJson<String?>(cronExpr),
+      'nextRunAt': serializer.toJson<DateTime?>(nextRunAt),
+      'lastRunAt': serializer.toJson<DateTime?>(lastRunAt),
+      'status': serializer.toJson<String>(status),
+      'failCount': serializer.toJson<int>(failCount),
+      'lastError': serializer.toJson<String?>(lastError),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  Task copyWith({
+    int? id,
+    String? title,
+    String? prompt,
+    Value<String?> skill = const Value.absent(),
+    String? kind,
+    Value<int?> intervalSec = const Value.absent(),
+    Value<String?> cronExpr = const Value.absent(),
+    Value<DateTime?> nextRunAt = const Value.absent(),
+    Value<DateTime?> lastRunAt = const Value.absent(),
+    String? status,
+    int? failCount,
+    Value<String?> lastError = const Value.absent(),
+    DateTime? createdAt,
+  }) => Task(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    prompt: prompt ?? this.prompt,
+    skill: skill.present ? skill.value : this.skill,
+    kind: kind ?? this.kind,
+    intervalSec: intervalSec.present ? intervalSec.value : this.intervalSec,
+    cronExpr: cronExpr.present ? cronExpr.value : this.cronExpr,
+    nextRunAt: nextRunAt.present ? nextRunAt.value : this.nextRunAt,
+    lastRunAt: lastRunAt.present ? lastRunAt.value : this.lastRunAt,
+    status: status ?? this.status,
+    failCount: failCount ?? this.failCount,
+    lastError: lastError.present ? lastError.value : this.lastError,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  Task copyWithCompanion(TasksCompanion data) {
+    return Task(
+      id: data.id.present ? data.id.value : this.id,
+      title: data.title.present ? data.title.value : this.title,
+      prompt: data.prompt.present ? data.prompt.value : this.prompt,
+      skill: data.skill.present ? data.skill.value : this.skill,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      intervalSec: data.intervalSec.present
+          ? data.intervalSec.value
+          : this.intervalSec,
+      cronExpr: data.cronExpr.present ? data.cronExpr.value : this.cronExpr,
+      nextRunAt: data.nextRunAt.present ? data.nextRunAt.value : this.nextRunAt,
+      lastRunAt: data.lastRunAt.present ? data.lastRunAt.value : this.lastRunAt,
+      status: data.status.present ? data.status.value : this.status,
+      failCount: data.failCount.present ? data.failCount.value : this.failCount,
+      lastError: data.lastError.present ? data.lastError.value : this.lastError,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Task(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('prompt: $prompt, ')
+          ..write('skill: $skill, ')
+          ..write('kind: $kind, ')
+          ..write('intervalSec: $intervalSec, ')
+          ..write('cronExpr: $cronExpr, ')
+          ..write('nextRunAt: $nextRunAt, ')
+          ..write('lastRunAt: $lastRunAt, ')
+          ..write('status: $status, ')
+          ..write('failCount: $failCount, ')
+          ..write('lastError: $lastError, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    title,
+    prompt,
+    skill,
+    kind,
+    intervalSec,
+    cronExpr,
+    nextRunAt,
+    lastRunAt,
+    status,
+    failCount,
+    lastError,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Task &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.prompt == this.prompt &&
+          other.skill == this.skill &&
+          other.kind == this.kind &&
+          other.intervalSec == this.intervalSec &&
+          other.cronExpr == this.cronExpr &&
+          other.nextRunAt == this.nextRunAt &&
+          other.lastRunAt == this.lastRunAt &&
+          other.status == this.status &&
+          other.failCount == this.failCount &&
+          other.lastError == this.lastError &&
+          other.createdAt == this.createdAt);
+}
+
+class TasksCompanion extends UpdateCompanion<Task> {
+  final Value<int> id;
+  final Value<String> title;
+  final Value<String> prompt;
+  final Value<String?> skill;
+  final Value<String> kind;
+  final Value<int?> intervalSec;
+  final Value<String?> cronExpr;
+  final Value<DateTime?> nextRunAt;
+  final Value<DateTime?> lastRunAt;
+  final Value<String> status;
+  final Value<int> failCount;
+  final Value<String?> lastError;
+  final Value<DateTime> createdAt;
+  const TasksCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.prompt = const Value.absent(),
+    this.skill = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.intervalSec = const Value.absent(),
+    this.cronExpr = const Value.absent(),
+    this.nextRunAt = const Value.absent(),
+    this.lastRunAt = const Value.absent(),
+    this.status = const Value.absent(),
+    this.failCount = const Value.absent(),
+    this.lastError = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  TasksCompanion.insert({
+    this.id = const Value.absent(),
+    required String title,
+    required String prompt,
+    this.skill = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.intervalSec = const Value.absent(),
+    this.cronExpr = const Value.absent(),
+    this.nextRunAt = const Value.absent(),
+    this.lastRunAt = const Value.absent(),
+    this.status = const Value.absent(),
+    this.failCount = const Value.absent(),
+    this.lastError = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : title = Value(title),
+       prompt = Value(prompt);
+  static Insertable<Task> custom({
+    Expression<int>? id,
+    Expression<String>? title,
+    Expression<String>? prompt,
+    Expression<String>? skill,
+    Expression<String>? kind,
+    Expression<int>? intervalSec,
+    Expression<String>? cronExpr,
+    Expression<DateTime>? nextRunAt,
+    Expression<DateTime>? lastRunAt,
+    Expression<String>? status,
+    Expression<int>? failCount,
+    Expression<String>? lastError,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (prompt != null) 'prompt': prompt,
+      if (skill != null) 'skill': skill,
+      if (kind != null) 'kind': kind,
+      if (intervalSec != null) 'interval_sec': intervalSec,
+      if (cronExpr != null) 'cron_expr': cronExpr,
+      if (nextRunAt != null) 'next_run_at': nextRunAt,
+      if (lastRunAt != null) 'last_run_at': lastRunAt,
+      if (status != null) 'status': status,
+      if (failCount != null) 'fail_count': failCount,
+      if (lastError != null) 'last_error': lastError,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  TasksCompanion copyWith({
+    Value<int>? id,
+    Value<String>? title,
+    Value<String>? prompt,
+    Value<String?>? skill,
+    Value<String>? kind,
+    Value<int?>? intervalSec,
+    Value<String?>? cronExpr,
+    Value<DateTime?>? nextRunAt,
+    Value<DateTime?>? lastRunAt,
+    Value<String>? status,
+    Value<int>? failCount,
+    Value<String?>? lastError,
+    Value<DateTime>? createdAt,
+  }) {
+    return TasksCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      prompt: prompt ?? this.prompt,
+      skill: skill ?? this.skill,
+      kind: kind ?? this.kind,
+      intervalSec: intervalSec ?? this.intervalSec,
+      cronExpr: cronExpr ?? this.cronExpr,
+      nextRunAt: nextRunAt ?? this.nextRunAt,
+      lastRunAt: lastRunAt ?? this.lastRunAt,
+      status: status ?? this.status,
+      failCount: failCount ?? this.failCount,
+      lastError: lastError ?? this.lastError,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (prompt.present) {
+      map['prompt'] = Variable<String>(prompt.value);
+    }
+    if (skill.present) {
+      map['skill'] = Variable<String>(skill.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (intervalSec.present) {
+      map['interval_sec'] = Variable<int>(intervalSec.value);
+    }
+    if (cronExpr.present) {
+      map['cron_expr'] = Variable<String>(cronExpr.value);
+    }
+    if (nextRunAt.present) {
+      map['next_run_at'] = Variable<DateTime>(nextRunAt.value);
+    }
+    if (lastRunAt.present) {
+      map['last_run_at'] = Variable<DateTime>(lastRunAt.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (failCount.present) {
+      map['fail_count'] = Variable<int>(failCount.value);
+    }
+    if (lastError.present) {
+      map['last_error'] = Variable<String>(lastError.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TasksCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('prompt: $prompt, ')
+          ..write('skill: $skill, ')
+          ..write('kind: $kind, ')
+          ..write('intervalSec: $intervalSec, ')
+          ..write('cronExpr: $cronExpr, ')
+          ..write('nextRunAt: $nextRunAt, ')
+          ..write('lastRunAt: $lastRunAt, ')
+          ..write('status: $status, ')
+          ..write('failCount: $failCount, ')
+          ..write('lastError: $lastError, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $ConversationsTable conversations = $ConversationsTable(this);
   late final $MessagesTable messages = $MessagesTable(this);
+  late final $TasksTable tasks = $TasksTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [conversations, messages];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    conversations,
+    messages,
+    tasks,
+  ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
     WritePropagation(
@@ -1861,6 +2600,347 @@ typedef $$MessagesTableProcessedTableManager =
       Message,
       PrefetchHooks Function({bool conversationId})
     >;
+typedef $$TasksTableCreateCompanionBuilder =
+    TasksCompanion Function({
+      Value<int> id,
+      required String title,
+      required String prompt,
+      Value<String?> skill,
+      Value<String> kind,
+      Value<int?> intervalSec,
+      Value<String?> cronExpr,
+      Value<DateTime?> nextRunAt,
+      Value<DateTime?> lastRunAt,
+      Value<String> status,
+      Value<int> failCount,
+      Value<String?> lastError,
+      Value<DateTime> createdAt,
+    });
+typedef $$TasksTableUpdateCompanionBuilder =
+    TasksCompanion Function({
+      Value<int> id,
+      Value<String> title,
+      Value<String> prompt,
+      Value<String?> skill,
+      Value<String> kind,
+      Value<int?> intervalSec,
+      Value<String?> cronExpr,
+      Value<DateTime?> nextRunAt,
+      Value<DateTime?> lastRunAt,
+      Value<String> status,
+      Value<int> failCount,
+      Value<String?> lastError,
+      Value<DateTime> createdAt,
+    });
+
+class $$TasksTableFilterComposer extends Composer<_$AppDatabase, $TasksTable> {
+  $$TasksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get prompt => $composableBuilder(
+    column: $table.prompt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get skill => $composableBuilder(
+    column: $table.skill,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get intervalSec => $composableBuilder(
+    column: $table.intervalSec,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cronExpr => $composableBuilder(
+    column: $table.cronExpr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get nextRunAt => $composableBuilder(
+    column: $table.nextRunAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastRunAt => $composableBuilder(
+    column: $table.lastRunAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get failCount => $composableBuilder(
+    column: $table.failCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$TasksTableOrderingComposer
+    extends Composer<_$AppDatabase, $TasksTable> {
+  $$TasksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get prompt => $composableBuilder(
+    column: $table.prompt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get skill => $composableBuilder(
+    column: $table.skill,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get intervalSec => $composableBuilder(
+    column: $table.intervalSec,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cronExpr => $composableBuilder(
+    column: $table.cronExpr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get nextRunAt => $composableBuilder(
+    column: $table.nextRunAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastRunAt => $composableBuilder(
+    column: $table.lastRunAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get failCount => $composableBuilder(
+    column: $table.failCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$TasksTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TasksTable> {
+  $$TasksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get prompt =>
+      $composableBuilder(column: $table.prompt, builder: (column) => column);
+
+  GeneratedColumn<String> get skill =>
+      $composableBuilder(column: $table.skill, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<int> get intervalSec => $composableBuilder(
+    column: $table.intervalSec,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get cronExpr =>
+      $composableBuilder(column: $table.cronExpr, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get nextRunAt =>
+      $composableBuilder(column: $table.nextRunAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastRunAt =>
+      $composableBuilder(column: $table.lastRunAt, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get failCount =>
+      $composableBuilder(column: $table.failCount, builder: (column) => column);
+
+  GeneratedColumn<String> get lastError =>
+      $composableBuilder(column: $table.lastError, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$TasksTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TasksTable,
+          Task,
+          $$TasksTableFilterComposer,
+          $$TasksTableOrderingComposer,
+          $$TasksTableAnnotationComposer,
+          $$TasksTableCreateCompanionBuilder,
+          $$TasksTableUpdateCompanionBuilder,
+          (Task, BaseReferences<_$AppDatabase, $TasksTable, Task>),
+          Task,
+          PrefetchHooks Function()
+        > {
+  $$TasksTableTableManager(_$AppDatabase db, $TasksTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TasksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TasksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TasksTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String> prompt = const Value.absent(),
+                Value<String?> skill = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<int?> intervalSec = const Value.absent(),
+                Value<String?> cronExpr = const Value.absent(),
+                Value<DateTime?> nextRunAt = const Value.absent(),
+                Value<DateTime?> lastRunAt = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> failCount = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => TasksCompanion(
+                id: id,
+                title: title,
+                prompt: prompt,
+                skill: skill,
+                kind: kind,
+                intervalSec: intervalSec,
+                cronExpr: cronExpr,
+                nextRunAt: nextRunAt,
+                lastRunAt: lastRunAt,
+                status: status,
+                failCount: failCount,
+                lastError: lastError,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String title,
+                required String prompt,
+                Value<String?> skill = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<int?> intervalSec = const Value.absent(),
+                Value<String?> cronExpr = const Value.absent(),
+                Value<DateTime?> nextRunAt = const Value.absent(),
+                Value<DateTime?> lastRunAt = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> failCount = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => TasksCompanion.insert(
+                id: id,
+                title: title,
+                prompt: prompt,
+                skill: skill,
+                kind: kind,
+                intervalSec: intervalSec,
+                cronExpr: cronExpr,
+                nextRunAt: nextRunAt,
+                lastRunAt: lastRunAt,
+                status: status,
+                failCount: failCount,
+                lastError: lastError,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$TasksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TasksTable,
+      Task,
+      $$TasksTableFilterComposer,
+      $$TasksTableOrderingComposer,
+      $$TasksTableAnnotationComposer,
+      $$TasksTableCreateCompanionBuilder,
+      $$TasksTableUpdateCompanionBuilder,
+      (Task, BaseReferences<_$AppDatabase, $TasksTable, Task>),
+      Task,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -1869,4 +2949,6 @@ class $AppDatabaseManager {
       $$ConversationsTableTableManager(_db, _db.conversations);
   $$MessagesTableTableManager get messages =>
       $$MessagesTableTableManager(_db, _db.messages);
+  $$TasksTableTableManager get tasks =>
+      $$TasksTableTableManager(_db, _db.tasks);
 }
