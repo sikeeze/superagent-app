@@ -1,0 +1,56 @@
+name: superagent
+description: "Superagent - AI agent workspace with wallet, airdrop, and Binance Agentic integration. Local-first, secure, lightweight."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # Architecture
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  # Routing
+  go_router: ^16.2.0
+  # HTTP / SSE streaming
+  dio: ^5.8.0+1
+  # Secure storage for API keys and Vault (rule S-01)
+  flutter_secure_storage: ^9.2.4
+  # Local chat persistence (Fase 2): drift over SQLite, WAL + indeks
+  drift: ^2.31.0
+  sqlite3_flutter_libs: ^0.5.34
+  # Utils
+  meta: ^1.16.0
+  path_provider: 2.1.5
+  sqlite3: any
+  supabase_flutter: 2.9.1
+
+  # -------------------------------------------------------------------
+  # Later phases stay commented until used (rule P-15: no unused deps).
+  # drift: ^2.31.0                       # Fase 2: chat persistence
+  # sqlite3_flutter_libs: ^0.5.34        # Fase 2
+  # supabase_flutter: ^2.9.1            # Fase 1B: auth
+  # flutter_local_notifications: ^19.0.0 # Fase 6
+  # web3dart: ^2.7.3                    # Fase 7: on-chain
+  # walletconnect_flutter_v2: ^3.2.1    # Fase 7: WalletConnect
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: 2.7.0
+  drift_dev: ^2.31.0
+  # riverpod_generator: ^2.6.5  # later
+  # json_serializable: ^6.9.5   # later
+flutter:
+  uses-material-design: true
+  assets:
+    # BIP-39 English wordlist (rule S-03: seed phrase redaction). ~14 KB,
+    # loaded once at bootstrap into an immutable Set.
+    - assets/bip39_english.txt
+  # P-09/P-15: no bundled large assets yet. Inter/JetBrainsMono ship as
+  # subsetted .ttf in Fase 8 (P-14); UI falls back to platform font now.

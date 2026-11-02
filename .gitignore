@@ -1,2 +1,29 @@
+# Flutter / Dart
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Editor / IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Proyek: blueprint & referensi desain tidak ikut ke repo
 SUPERAGENT_BLUEPRINT.md
 *.pdf
+
+# Artefak asing yang tak relevan
+mnemonic-0.21-py3-none-any.whl
+
+# Hasil tes / coverage
+coverage/
