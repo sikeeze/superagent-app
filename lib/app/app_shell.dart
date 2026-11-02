@@ -12,6 +12,7 @@ import '../features/model/model_page.dart';
 import '../features/provider/provider_settings_page.dart';
 import '../features/settings/settings_page.dart';
 import '../features/skills/skills_page.dart';
+import '../features/terminal/terminal_page.dart';
 import '../features/wallet/wallet_page.dart';
 
 /// Adaptive workspace shell (blueprint 8.2, design PDF layout).
@@ -35,6 +36,10 @@ class _AppShellState extends ConsumerState<AppShell> {
     _NavTab(label: 'Beranda', icon: Icons.home_outlined, child: DashboardPage()),
     _NavTab(label: 'Chat', icon: Icons.chat_bubble_outline, child: ChatPage()),
     _NavTab(label: 'Skills', icon: Icons.extension_outlined, child: SkillsPage()),
+    _NavTab(
+        label: 'Terminal',
+        icon: Icons.terminal_outlined,
+        child: TerminalPage()),
     _NavTab(
         label: 'Wallet',
         icon: Icons.account_balance_wallet_outlined,
