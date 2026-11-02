@@ -202,13 +202,13 @@ packages:
     source: hosted
     version: "3.1.2"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
-      sha256: e3626ae6270383c9e3a549f34c9e4cd26c09ae6a9adaab2bf4737a00340efdc4
+      sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.8"
+    version: "3.0.6"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -688,6 +688,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.7.0"
+  quickjs_engine:
+    dependency: "direct main"
+    description:
+      name: quickjs_engine
+      sha256: "7915cd1698b3ceac0db48913c84305167458c3f3ae29a3add8d1b81340450ccb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.6"
   realtime_client:
     dependency: transitive
     description:
@@ -917,6 +925,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.9.1"
+  sync_http:
+    dependency: transitive
+    description:
+      name: sync_http
+      sha256: "7f0cd72eca000d2e026bcd6f990b81d0ca06022ef4e32fb257b30d3d1014a961"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
   term_glyph:
     dependency: transitive
     description:

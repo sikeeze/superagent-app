@@ -28,6 +28,8 @@ dependencies:
   path_provider: 2.1.5
   sqlite3: any
   supabase_flutter: 2.9.1
+  quickjs_engine: 0.1.6
+  crypto: 3.0.6
 
   # -------------------------------------------------------------------
   # Later phases stay commented until used (rule P-15: no unused deps).
