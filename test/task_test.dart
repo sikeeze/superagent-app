@@ -159,12 +159,4 @@ void main() {
   });
 }
 
-extension on TaskRepository {
-  Future<Task?> byTitle(String title) async {
-    final rows = await all();
-    for (final t in rows) {
-      if (t.title == title) return t;
-    }
-    return null;
-  }
-}
+

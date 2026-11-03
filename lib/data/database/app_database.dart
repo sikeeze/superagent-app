@@ -5,6 +5,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'crypto_tables.dart';
 import 'tables.dart';
 import 'task_tables.dart';
 
@@ -30,7 +31,14 @@ class MessageHit {
 /// - WAL mode + indeks untuk throughput baca/tulis
 /// - foreign key cascade: hapus percakapan = hapus pesannya
 /// - versi migrate naik satu per satu; tidak ada destructive migration
-@DriftDatabase(tables: [Conversations, Messages, Tasks])
+@DriftDatabase(tables: [
+  Conversations,
+  Messages,
+  Tasks,
+  WatchWallets,
+  OnchainSettings,
+  ContractAllowlist,
+])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
@@ -39,12 +47,24 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) async {
           await m.createAll();
+        },
+        onUpgrade: (m, from, to) async {
+          // v2: tabel tasks (blueprint 5.4).
+          if (from < 2) {
+            await m.createTable(tasks);
+          }
+          // v3: tabel crypto watch-only (blueprint 10A, Fase 7).
+          if (from < 3) {
+            await m.createTable(watchWallets);
+            await m.createTable(onchainSettings);
+            await m.createTable(contractAllowlist);
+          }
         },
         beforeOpen: (details) async {
           // foreign_keys butuh satu panggilan per koneksi; WAL untuk

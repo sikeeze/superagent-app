@@ -1812,12 +1812,1344 @@ class TasksCompanion extends UpdateCompanion<Task> {
   }
 }
 
+class $WatchWalletsTable extends WatchWallets
+    with TableInfo<$WatchWalletsTable, WatchWallet> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $WatchWalletsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _addressMeta = const VerificationMeta(
+    'address',
+  );
+  @override
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+    'address',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _chainIdMeta = const VerificationMeta(
+    'chainId',
+  );
+  @override
+  late final GeneratedColumn<int> chainId = GeneratedColumn<int>(
+    'chain_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(56),
+  );
+  static const VerificationMeta _rpcUrlMeta = const VerificationMeta('rpcUrl');
+  @override
+  late final GeneratedColumn<String> rpcUrl = GeneratedColumn<String>(
+    'rpc_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _alertThresholdMeta = const VerificationMeta(
+    'alertThreshold',
+  );
+  @override
+  late final GeneratedColumn<double> alertThreshold = GeneratedColumn<double>(
+    'alert_threshold',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    label,
+    address,
+    chainId,
+    rpcUrl,
+    alertThreshold,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'watch_wallets';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<WatchWallet> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_labelMeta);
+    }
+    if (data.containsKey('address')) {
+      context.handle(
+        _addressMeta,
+        address.isAcceptableOrUnknown(data['address']!, _addressMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_addressMeta);
+    }
+    if (data.containsKey('chain_id')) {
+      context.handle(
+        _chainIdMeta,
+        chainId.isAcceptableOrUnknown(data['chain_id']!, _chainIdMeta),
+      );
+    }
+    if (data.containsKey('rpc_url')) {
+      context.handle(
+        _rpcUrlMeta,
+        rpcUrl.isAcceptableOrUnknown(data['rpc_url']!, _rpcUrlMeta),
+      );
+    }
+    if (data.containsKey('alert_threshold')) {
+      context.handle(
+        _alertThresholdMeta,
+        alertThreshold.isAcceptableOrUnknown(
+          data['alert_threshold']!,
+          _alertThresholdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  WatchWallet map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return WatchWallet(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      )!,
+      address: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}address'],
+      )!,
+      chainId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}chain_id'],
+      )!,
+      rpcUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}rpc_url'],
+      ),
+      alertThreshold: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}alert_threshold'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $WatchWalletsTable createAlias(String alias) {
+    return $WatchWalletsTable(attachedDatabase, alias);
+  }
+}
+
+class WatchWallet extends DataClass implements Insertable<WatchWallet> {
+  final int id;
+  final String label;
+  final String address;
+  final int chainId;
+  final String? rpcUrl;
+
+  /// Ambang saldo (V-08). Null = tanpa peringatan.
+  final double? alertThreshold;
+  final DateTime createdAt;
+  const WatchWallet({
+    required this.id,
+    required this.label,
+    required this.address,
+    required this.chainId,
+    this.rpcUrl,
+    this.alertThreshold,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['label'] = Variable<String>(label);
+    map['address'] = Variable<String>(address);
+    map['chain_id'] = Variable<int>(chainId);
+    if (!nullToAbsent || rpcUrl != null) {
+      map['rpc_url'] = Variable<String>(rpcUrl);
+    }
+    if (!nullToAbsent || alertThreshold != null) {
+      map['alert_threshold'] = Variable<double>(alertThreshold);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  WatchWalletsCompanion toCompanion(bool nullToAbsent) {
+    return WatchWalletsCompanion(
+      id: Value(id),
+      label: Value(label),
+      address: Value(address),
+      chainId: Value(chainId),
+      rpcUrl: rpcUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(rpcUrl),
+      alertThreshold: alertThreshold == null && nullToAbsent
+          ? const Value.absent()
+          : Value(alertThreshold),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory WatchWallet.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return WatchWallet(
+      id: serializer.fromJson<int>(json['id']),
+      label: serializer.fromJson<String>(json['label']),
+      address: serializer.fromJson<String>(json['address']),
+      chainId: serializer.fromJson<int>(json['chainId']),
+      rpcUrl: serializer.fromJson<String?>(json['rpcUrl']),
+      alertThreshold: serializer.fromJson<double?>(json['alertThreshold']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'label': serializer.toJson<String>(label),
+      'address': serializer.toJson<String>(address),
+      'chainId': serializer.toJson<int>(chainId),
+      'rpcUrl': serializer.toJson<String?>(rpcUrl),
+      'alertThreshold': serializer.toJson<double?>(alertThreshold),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  WatchWallet copyWith({
+    int? id,
+    String? label,
+    String? address,
+    int? chainId,
+    Value<String?> rpcUrl = const Value.absent(),
+    Value<double?> alertThreshold = const Value.absent(),
+    DateTime? createdAt,
+  }) => WatchWallet(
+    id: id ?? this.id,
+    label: label ?? this.label,
+    address: address ?? this.address,
+    chainId: chainId ?? this.chainId,
+    rpcUrl: rpcUrl.present ? rpcUrl.value : this.rpcUrl,
+    alertThreshold: alertThreshold.present
+        ? alertThreshold.value
+        : this.alertThreshold,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  WatchWallet copyWithCompanion(WatchWalletsCompanion data) {
+    return WatchWallet(
+      id: data.id.present ? data.id.value : this.id,
+      label: data.label.present ? data.label.value : this.label,
+      address: data.address.present ? data.address.value : this.address,
+      chainId: data.chainId.present ? data.chainId.value : this.chainId,
+      rpcUrl: data.rpcUrl.present ? data.rpcUrl.value : this.rpcUrl,
+      alertThreshold: data.alertThreshold.present
+          ? data.alertThreshold.value
+          : this.alertThreshold,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WatchWallet(')
+          ..write('id: $id, ')
+          ..write('label: $label, ')
+          ..write('address: $address, ')
+          ..write('chainId: $chainId, ')
+          ..write('rpcUrl: $rpcUrl, ')
+          ..write('alertThreshold: $alertThreshold, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    label,
+    address,
+    chainId,
+    rpcUrl,
+    alertThreshold,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is WatchWallet &&
+          other.id == this.id &&
+          other.label == this.label &&
+          other.address == this.address &&
+          other.chainId == this.chainId &&
+          other.rpcUrl == this.rpcUrl &&
+          other.alertThreshold == this.alertThreshold &&
+          other.createdAt == this.createdAt);
+}
+
+class WatchWalletsCompanion extends UpdateCompanion<WatchWallet> {
+  final Value<int> id;
+  final Value<String> label;
+  final Value<String> address;
+  final Value<int> chainId;
+  final Value<String?> rpcUrl;
+  final Value<double?> alertThreshold;
+  final Value<DateTime> createdAt;
+  const WatchWalletsCompanion({
+    this.id = const Value.absent(),
+    this.label = const Value.absent(),
+    this.address = const Value.absent(),
+    this.chainId = const Value.absent(),
+    this.rpcUrl = const Value.absent(),
+    this.alertThreshold = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  WatchWalletsCompanion.insert({
+    this.id = const Value.absent(),
+    required String label,
+    required String address,
+    this.chainId = const Value.absent(),
+    this.rpcUrl = const Value.absent(),
+    this.alertThreshold = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : label = Value(label),
+       address = Value(address);
+  static Insertable<WatchWallet> custom({
+    Expression<int>? id,
+    Expression<String>? label,
+    Expression<String>? address,
+    Expression<int>? chainId,
+    Expression<String>? rpcUrl,
+    Expression<double>? alertThreshold,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (label != null) 'label': label,
+      if (address != null) 'address': address,
+      if (chainId != null) 'chain_id': chainId,
+      if (rpcUrl != null) 'rpc_url': rpcUrl,
+      if (alertThreshold != null) 'alert_threshold': alertThreshold,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  WatchWalletsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? label,
+    Value<String>? address,
+    Value<int>? chainId,
+    Value<String?>? rpcUrl,
+    Value<double?>? alertThreshold,
+    Value<DateTime>? createdAt,
+  }) {
+    return WatchWalletsCompanion(
+      id: id ?? this.id,
+      label: label ?? this.label,
+      address: address ?? this.address,
+      chainId: chainId ?? this.chainId,
+      rpcUrl: rpcUrl ?? this.rpcUrl,
+      alertThreshold: alertThreshold ?? this.alertThreshold,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
+    if (chainId.present) {
+      map['chain_id'] = Variable<int>(chainId.value);
+    }
+    if (rpcUrl.present) {
+      map['rpc_url'] = Variable<String>(rpcUrl.value);
+    }
+    if (alertThreshold.present) {
+      map['alert_threshold'] = Variable<double>(alertThreshold.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WatchWalletsCompanion(')
+          ..write('id: $id, ')
+          ..write('label: $label, ')
+          ..write('address: $address, ')
+          ..write('chainId: $chainId, ')
+          ..write('rpcUrl: $rpcUrl, ')
+          ..write('alertThreshold: $alertThreshold, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $OnchainSettingsTable extends OnchainSettings
+    with TableInfo<$OnchainSettingsTable, OnchainSetting> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $OnchainSettingsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _modeMeta = const VerificationMeta('mode');
+  @override
+  late final GeneratedColumn<String> mode = GeneratedColumn<String>(
+    'mode',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('manual'),
+  );
+  static const VerificationMeta _limitPerTxMeta = const VerificationMeta(
+    'limitPerTx',
+  );
+  @override
+  late final GeneratedColumn<double> limitPerTx = GeneratedColumn<double>(
+    'limit_per_tx',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0.01),
+  );
+  static const VerificationMeta _limitPerDayMeta = const VerificationMeta(
+    'limitPerDay',
+  );
+  @override
+  late final GeneratedColumn<double> limitPerDay = GeneratedColumn<double>(
+    'limit_per_day',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0.05),
+  );
+  static const VerificationMeta _maxGasGweiMeta = const VerificationMeta(
+    'maxGasGwei',
+  );
+  @override
+  late final GeneratedColumn<double> maxGasGwei = GeneratedColumn<double>(
+    'max_gas_gwei',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(5),
+  );
+  static const VerificationMeta _autoRevertDaysMeta = const VerificationMeta(
+    'autoRevertDays',
+  );
+  @override
+  late final GeneratedColumn<int> autoRevertDays = GeneratedColumn<int>(
+    'auto_revert_days',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(7),
+  );
+  static const VerificationMeta _autoActivatedAtMeta = const VerificationMeta(
+    'autoActivatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> autoActivatedAt =
+      GeneratedColumn<DateTime>(
+        'auto_activated_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    mode,
+    limitPerTx,
+    limitPerDay,
+    maxGasGwei,
+    autoRevertDays,
+    autoActivatedAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'onchain_settings';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<OnchainSetting> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('mode')) {
+      context.handle(
+        _modeMeta,
+        mode.isAcceptableOrUnknown(data['mode']!, _modeMeta),
+      );
+    }
+    if (data.containsKey('limit_per_tx')) {
+      context.handle(
+        _limitPerTxMeta,
+        limitPerTx.isAcceptableOrUnknown(
+          data['limit_per_tx']!,
+          _limitPerTxMeta,
+        ),
+      );
+    }
+    if (data.containsKey('limit_per_day')) {
+      context.handle(
+        _limitPerDayMeta,
+        limitPerDay.isAcceptableOrUnknown(
+          data['limit_per_day']!,
+          _limitPerDayMeta,
+        ),
+      );
+    }
+    if (data.containsKey('max_gas_gwei')) {
+      context.handle(
+        _maxGasGweiMeta,
+        maxGasGwei.isAcceptableOrUnknown(
+          data['max_gas_gwei']!,
+          _maxGasGweiMeta,
+        ),
+      );
+    }
+    if (data.containsKey('auto_revert_days')) {
+      context.handle(
+        _autoRevertDaysMeta,
+        autoRevertDays.isAcceptableOrUnknown(
+          data['auto_revert_days']!,
+          _autoRevertDaysMeta,
+        ),
+      );
+    }
+    if (data.containsKey('auto_activated_at')) {
+      context.handle(
+        _autoActivatedAtMeta,
+        autoActivatedAt.isAcceptableOrUnknown(
+          data['auto_activated_at']!,
+          _autoActivatedAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  OnchainSetting map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return OnchainSetting(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      mode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mode'],
+      )!,
+      limitPerTx: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}limit_per_tx'],
+      )!,
+      limitPerDay: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}limit_per_day'],
+      )!,
+      maxGasGwei: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}max_gas_gwei'],
+      )!,
+      autoRevertDays: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}auto_revert_days'],
+      )!,
+      autoActivatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}auto_activated_at'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $OnchainSettingsTable createAlias(String alias) {
+    return $OnchainSettingsTable(attachedDatabase, alias);
+  }
+}
+
+class OnchainSetting extends DataClass implements Insertable<OnchainSetting> {
+  final int id;
+
+  /// 'manual' | 'auto_limited' | 'auto_full'
+  final String mode;
+  final double limitPerTx;
+  final double limitPerDay;
+  final double maxGasGwei;
+  final int autoRevertDays;
+  final DateTime? autoActivatedAt;
+  final DateTime updatedAt;
+  const OnchainSetting({
+    required this.id,
+    required this.mode,
+    required this.limitPerTx,
+    required this.limitPerDay,
+    required this.maxGasGwei,
+    required this.autoRevertDays,
+    this.autoActivatedAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['mode'] = Variable<String>(mode);
+    map['limit_per_tx'] = Variable<double>(limitPerTx);
+    map['limit_per_day'] = Variable<double>(limitPerDay);
+    map['max_gas_gwei'] = Variable<double>(maxGasGwei);
+    map['auto_revert_days'] = Variable<int>(autoRevertDays);
+    if (!nullToAbsent || autoActivatedAt != null) {
+      map['auto_activated_at'] = Variable<DateTime>(autoActivatedAt);
+    }
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  OnchainSettingsCompanion toCompanion(bool nullToAbsent) {
+    return OnchainSettingsCompanion(
+      id: Value(id),
+      mode: Value(mode),
+      limitPerTx: Value(limitPerTx),
+      limitPerDay: Value(limitPerDay),
+      maxGasGwei: Value(maxGasGwei),
+      autoRevertDays: Value(autoRevertDays),
+      autoActivatedAt: autoActivatedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(autoActivatedAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory OnchainSetting.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return OnchainSetting(
+      id: serializer.fromJson<int>(json['id']),
+      mode: serializer.fromJson<String>(json['mode']),
+      limitPerTx: serializer.fromJson<double>(json['limitPerTx']),
+      limitPerDay: serializer.fromJson<double>(json['limitPerDay']),
+      maxGasGwei: serializer.fromJson<double>(json['maxGasGwei']),
+      autoRevertDays: serializer.fromJson<int>(json['autoRevertDays']),
+      autoActivatedAt: serializer.fromJson<DateTime?>(json['autoActivatedAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'mode': serializer.toJson<String>(mode),
+      'limitPerTx': serializer.toJson<double>(limitPerTx),
+      'limitPerDay': serializer.toJson<double>(limitPerDay),
+      'maxGasGwei': serializer.toJson<double>(maxGasGwei),
+      'autoRevertDays': serializer.toJson<int>(autoRevertDays),
+      'autoActivatedAt': serializer.toJson<DateTime?>(autoActivatedAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  OnchainSetting copyWith({
+    int? id,
+    String? mode,
+    double? limitPerTx,
+    double? limitPerDay,
+    double? maxGasGwei,
+    int? autoRevertDays,
+    Value<DateTime?> autoActivatedAt = const Value.absent(),
+    DateTime? updatedAt,
+  }) => OnchainSetting(
+    id: id ?? this.id,
+    mode: mode ?? this.mode,
+    limitPerTx: limitPerTx ?? this.limitPerTx,
+    limitPerDay: limitPerDay ?? this.limitPerDay,
+    maxGasGwei: maxGasGwei ?? this.maxGasGwei,
+    autoRevertDays: autoRevertDays ?? this.autoRevertDays,
+    autoActivatedAt: autoActivatedAt.present
+        ? autoActivatedAt.value
+        : this.autoActivatedAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  OnchainSetting copyWithCompanion(OnchainSettingsCompanion data) {
+    return OnchainSetting(
+      id: data.id.present ? data.id.value : this.id,
+      mode: data.mode.present ? data.mode.value : this.mode,
+      limitPerTx: data.limitPerTx.present
+          ? data.limitPerTx.value
+          : this.limitPerTx,
+      limitPerDay: data.limitPerDay.present
+          ? data.limitPerDay.value
+          : this.limitPerDay,
+      maxGasGwei: data.maxGasGwei.present
+          ? data.maxGasGwei.value
+          : this.maxGasGwei,
+      autoRevertDays: data.autoRevertDays.present
+          ? data.autoRevertDays.value
+          : this.autoRevertDays,
+      autoActivatedAt: data.autoActivatedAt.present
+          ? data.autoActivatedAt.value
+          : this.autoActivatedAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('OnchainSetting(')
+          ..write('id: $id, ')
+          ..write('mode: $mode, ')
+          ..write('limitPerTx: $limitPerTx, ')
+          ..write('limitPerDay: $limitPerDay, ')
+          ..write('maxGasGwei: $maxGasGwei, ')
+          ..write('autoRevertDays: $autoRevertDays, ')
+          ..write('autoActivatedAt: $autoActivatedAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    mode,
+    limitPerTx,
+    limitPerDay,
+    maxGasGwei,
+    autoRevertDays,
+    autoActivatedAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is OnchainSetting &&
+          other.id == this.id &&
+          other.mode == this.mode &&
+          other.limitPerTx == this.limitPerTx &&
+          other.limitPerDay == this.limitPerDay &&
+          other.maxGasGwei == this.maxGasGwei &&
+          other.autoRevertDays == this.autoRevertDays &&
+          other.autoActivatedAt == this.autoActivatedAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class OnchainSettingsCompanion extends UpdateCompanion<OnchainSetting> {
+  final Value<int> id;
+  final Value<String> mode;
+  final Value<double> limitPerTx;
+  final Value<double> limitPerDay;
+  final Value<double> maxGasGwei;
+  final Value<int> autoRevertDays;
+  final Value<DateTime?> autoActivatedAt;
+  final Value<DateTime> updatedAt;
+  const OnchainSettingsCompanion({
+    this.id = const Value.absent(),
+    this.mode = const Value.absent(),
+    this.limitPerTx = const Value.absent(),
+    this.limitPerDay = const Value.absent(),
+    this.maxGasGwei = const Value.absent(),
+    this.autoRevertDays = const Value.absent(),
+    this.autoActivatedAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  OnchainSettingsCompanion.insert({
+    this.id = const Value.absent(),
+    this.mode = const Value.absent(),
+    this.limitPerTx = const Value.absent(),
+    this.limitPerDay = const Value.absent(),
+    this.maxGasGwei = const Value.absent(),
+    this.autoRevertDays = const Value.absent(),
+    this.autoActivatedAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  static Insertable<OnchainSetting> custom({
+    Expression<int>? id,
+    Expression<String>? mode,
+    Expression<double>? limitPerTx,
+    Expression<double>? limitPerDay,
+    Expression<double>? maxGasGwei,
+    Expression<int>? autoRevertDays,
+    Expression<DateTime>? autoActivatedAt,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (mode != null) 'mode': mode,
+      if (limitPerTx != null) 'limit_per_tx': limitPerTx,
+      if (limitPerDay != null) 'limit_per_day': limitPerDay,
+      if (maxGasGwei != null) 'max_gas_gwei': maxGasGwei,
+      if (autoRevertDays != null) 'auto_revert_days': autoRevertDays,
+      if (autoActivatedAt != null) 'auto_activated_at': autoActivatedAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  OnchainSettingsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? mode,
+    Value<double>? limitPerTx,
+    Value<double>? limitPerDay,
+    Value<double>? maxGasGwei,
+    Value<int>? autoRevertDays,
+    Value<DateTime?>? autoActivatedAt,
+    Value<DateTime>? updatedAt,
+  }) {
+    return OnchainSettingsCompanion(
+      id: id ?? this.id,
+      mode: mode ?? this.mode,
+      limitPerTx: limitPerTx ?? this.limitPerTx,
+      limitPerDay: limitPerDay ?? this.limitPerDay,
+      maxGasGwei: maxGasGwei ?? this.maxGasGwei,
+      autoRevertDays: autoRevertDays ?? this.autoRevertDays,
+      autoActivatedAt: autoActivatedAt ?? this.autoActivatedAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (mode.present) {
+      map['mode'] = Variable<String>(mode.value);
+    }
+    if (limitPerTx.present) {
+      map['limit_per_tx'] = Variable<double>(limitPerTx.value);
+    }
+    if (limitPerDay.present) {
+      map['limit_per_day'] = Variable<double>(limitPerDay.value);
+    }
+    if (maxGasGwei.present) {
+      map['max_gas_gwei'] = Variable<double>(maxGasGwei.value);
+    }
+    if (autoRevertDays.present) {
+      map['auto_revert_days'] = Variable<int>(autoRevertDays.value);
+    }
+    if (autoActivatedAt.present) {
+      map['auto_activated_at'] = Variable<DateTime>(autoActivatedAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('OnchainSettingsCompanion(')
+          ..write('id: $id, ')
+          ..write('mode: $mode, ')
+          ..write('limitPerTx: $limitPerTx, ')
+          ..write('limitPerDay: $limitPerDay, ')
+          ..write('maxGasGwei: $maxGasGwei, ')
+          ..write('autoRevertDays: $autoRevertDays, ')
+          ..write('autoActivatedAt: $autoActivatedAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ContractAllowlistTable extends ContractAllowlist
+    with TableInfo<$ContractAllowlistTable, ContractAllowlistData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ContractAllowlistTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _addressMeta = const VerificationMeta(
+    'address',
+  );
+  @override
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+    'address',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _functionsMeta = const VerificationMeta(
+    'functions',
+  );
+  @override
+  late final GeneratedColumn<String> functions = GeneratedColumn<String>(
+    'functions',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('*'),
+  );
+  static const VerificationMeta _addedAtMeta = const VerificationMeta(
+    'addedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> addedAt = GeneratedColumn<DateTime>(
+    'added_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    address,
+    label,
+    functions,
+    addedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'contract_allowlist';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ContractAllowlistData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('address')) {
+      context.handle(
+        _addressMeta,
+        address.isAcceptableOrUnknown(data['address']!, _addressMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_addressMeta);
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    }
+    if (data.containsKey('functions')) {
+      context.handle(
+        _functionsMeta,
+        functions.isAcceptableOrUnknown(data['functions']!, _functionsMeta),
+      );
+    }
+    if (data.containsKey('added_at')) {
+      context.handle(
+        _addedAtMeta,
+        addedAt.isAcceptableOrUnknown(data['added_at']!, _addedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ContractAllowlistData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ContractAllowlistData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      address: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}address'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      ),
+      functions: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}functions'],
+      )!,
+      addedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}added_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ContractAllowlistTable createAlias(String alias) {
+    return $ContractAllowlistTable(attachedDatabase, alias);
+  }
+}
+
+class ContractAllowlistData extends DataClass
+    implements Insertable<ContractAllowlistData> {
+  final int id;
+  final String address;
+  final String? label;
+
+  /// Fungsi yang diizinkan dipanggil di kontrak ini (mis. 'claim', 'mint').
+  /// Disimpan sebagai list yang dipisah koma; '*' = semua fungsi.
+  final String functions;
+  final DateTime addedAt;
+  const ContractAllowlistData({
+    required this.id,
+    required this.address,
+    this.label,
+    required this.functions,
+    required this.addedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['address'] = Variable<String>(address);
+    if (!nullToAbsent || label != null) {
+      map['label'] = Variable<String>(label);
+    }
+    map['functions'] = Variable<String>(functions);
+    map['added_at'] = Variable<DateTime>(addedAt);
+    return map;
+  }
+
+  ContractAllowlistCompanion toCompanion(bool nullToAbsent) {
+    return ContractAllowlistCompanion(
+      id: Value(id),
+      address: Value(address),
+      label: label == null && nullToAbsent
+          ? const Value.absent()
+          : Value(label),
+      functions: Value(functions),
+      addedAt: Value(addedAt),
+    );
+  }
+
+  factory ContractAllowlistData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ContractAllowlistData(
+      id: serializer.fromJson<int>(json['id']),
+      address: serializer.fromJson<String>(json['address']),
+      label: serializer.fromJson<String?>(json['label']),
+      functions: serializer.fromJson<String>(json['functions']),
+      addedAt: serializer.fromJson<DateTime>(json['addedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'address': serializer.toJson<String>(address),
+      'label': serializer.toJson<String?>(label),
+      'functions': serializer.toJson<String>(functions),
+      'addedAt': serializer.toJson<DateTime>(addedAt),
+    };
+  }
+
+  ContractAllowlistData copyWith({
+    int? id,
+    String? address,
+    Value<String?> label = const Value.absent(),
+    String? functions,
+    DateTime? addedAt,
+  }) => ContractAllowlistData(
+    id: id ?? this.id,
+    address: address ?? this.address,
+    label: label.present ? label.value : this.label,
+    functions: functions ?? this.functions,
+    addedAt: addedAt ?? this.addedAt,
+  );
+  ContractAllowlistData copyWithCompanion(ContractAllowlistCompanion data) {
+    return ContractAllowlistData(
+      id: data.id.present ? data.id.value : this.id,
+      address: data.address.present ? data.address.value : this.address,
+      label: data.label.present ? data.label.value : this.label,
+      functions: data.functions.present ? data.functions.value : this.functions,
+      addedAt: data.addedAt.present ? data.addedAt.value : this.addedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContractAllowlistData(')
+          ..write('id: $id, ')
+          ..write('address: $address, ')
+          ..write('label: $label, ')
+          ..write('functions: $functions, ')
+          ..write('addedAt: $addedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, address, label, functions, addedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ContractAllowlistData &&
+          other.id == this.id &&
+          other.address == this.address &&
+          other.label == this.label &&
+          other.functions == this.functions &&
+          other.addedAt == this.addedAt);
+}
+
+class ContractAllowlistCompanion
+    extends UpdateCompanion<ContractAllowlistData> {
+  final Value<int> id;
+  final Value<String> address;
+  final Value<String?> label;
+  final Value<String> functions;
+  final Value<DateTime> addedAt;
+  const ContractAllowlistCompanion({
+    this.id = const Value.absent(),
+    this.address = const Value.absent(),
+    this.label = const Value.absent(),
+    this.functions = const Value.absent(),
+    this.addedAt = const Value.absent(),
+  });
+  ContractAllowlistCompanion.insert({
+    this.id = const Value.absent(),
+    required String address,
+    this.label = const Value.absent(),
+    this.functions = const Value.absent(),
+    this.addedAt = const Value.absent(),
+  }) : address = Value(address);
+  static Insertable<ContractAllowlistData> custom({
+    Expression<int>? id,
+    Expression<String>? address,
+    Expression<String>? label,
+    Expression<String>? functions,
+    Expression<DateTime>? addedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (address != null) 'address': address,
+      if (label != null) 'label': label,
+      if (functions != null) 'functions': functions,
+      if (addedAt != null) 'added_at': addedAt,
+    });
+  }
+
+  ContractAllowlistCompanion copyWith({
+    Value<int>? id,
+    Value<String>? address,
+    Value<String?>? label,
+    Value<String>? functions,
+    Value<DateTime>? addedAt,
+  }) {
+    return ContractAllowlistCompanion(
+      id: id ?? this.id,
+      address: address ?? this.address,
+      label: label ?? this.label,
+      functions: functions ?? this.functions,
+      addedAt: addedAt ?? this.addedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    if (functions.present) {
+      map['functions'] = Variable<String>(functions.value);
+    }
+    if (addedAt.present) {
+      map['added_at'] = Variable<DateTime>(addedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContractAllowlistCompanion(')
+          ..write('id: $id, ')
+          ..write('address: $address, ')
+          ..write('label: $label, ')
+          ..write('functions: $functions, ')
+          ..write('addedAt: $addedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $ConversationsTable conversations = $ConversationsTable(this);
   late final $MessagesTable messages = $MessagesTable(this);
   late final $TasksTable tasks = $TasksTable(this);
+  late final $WatchWalletsTable watchWallets = $WatchWalletsTable(this);
+  late final $OnchainSettingsTable onchainSettings = $OnchainSettingsTable(
+    this,
+  );
+  late final $ContractAllowlistTable contractAllowlist =
+      $ContractAllowlistTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1826,6 +3158,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     conversations,
     messages,
     tasks,
+    watchWallets,
+    onchainSettings,
+    contractAllowlist,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -2941,6 +4276,714 @@ typedef $$TasksTableProcessedTableManager =
       Task,
       PrefetchHooks Function()
     >;
+typedef $$WatchWalletsTableCreateCompanionBuilder =
+    WatchWalletsCompanion Function({
+      Value<int> id,
+      required String label,
+      required String address,
+      Value<int> chainId,
+      Value<String?> rpcUrl,
+      Value<double?> alertThreshold,
+      Value<DateTime> createdAt,
+    });
+typedef $$WatchWalletsTableUpdateCompanionBuilder =
+    WatchWalletsCompanion Function({
+      Value<int> id,
+      Value<String> label,
+      Value<String> address,
+      Value<int> chainId,
+      Value<String?> rpcUrl,
+      Value<double?> alertThreshold,
+      Value<DateTime> createdAt,
+    });
+
+class $$WatchWalletsTableFilterComposer
+    extends Composer<_$AppDatabase, $WatchWalletsTable> {
+  $$WatchWalletsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get chainId => $composableBuilder(
+    column: $table.chainId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get rpcUrl => $composableBuilder(
+    column: $table.rpcUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get alertThreshold => $composableBuilder(
+    column: $table.alertThreshold,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$WatchWalletsTableOrderingComposer
+    extends Composer<_$AppDatabase, $WatchWalletsTable> {
+  $$WatchWalletsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get chainId => $composableBuilder(
+    column: $table.chainId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get rpcUrl => $composableBuilder(
+    column: $table.rpcUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get alertThreshold => $composableBuilder(
+    column: $table.alertThreshold,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$WatchWalletsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $WatchWalletsTable> {
+  $$WatchWalletsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<int> get chainId =>
+      $composableBuilder(column: $table.chainId, builder: (column) => column);
+
+  GeneratedColumn<String> get rpcUrl =>
+      $composableBuilder(column: $table.rpcUrl, builder: (column) => column);
+
+  GeneratedColumn<double> get alertThreshold => $composableBuilder(
+    column: $table.alertThreshold,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$WatchWalletsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $WatchWalletsTable,
+          WatchWallet,
+          $$WatchWalletsTableFilterComposer,
+          $$WatchWalletsTableOrderingComposer,
+          $$WatchWalletsTableAnnotationComposer,
+          $$WatchWalletsTableCreateCompanionBuilder,
+          $$WatchWalletsTableUpdateCompanionBuilder,
+          (
+            WatchWallet,
+            BaseReferences<_$AppDatabase, $WatchWalletsTable, WatchWallet>,
+          ),
+          WatchWallet,
+          PrefetchHooks Function()
+        > {
+  $$WatchWalletsTableTableManager(_$AppDatabase db, $WatchWalletsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$WatchWalletsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$WatchWalletsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$WatchWalletsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> label = const Value.absent(),
+                Value<String> address = const Value.absent(),
+                Value<int> chainId = const Value.absent(),
+                Value<String?> rpcUrl = const Value.absent(),
+                Value<double?> alertThreshold = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => WatchWalletsCompanion(
+                id: id,
+                label: label,
+                address: address,
+                chainId: chainId,
+                rpcUrl: rpcUrl,
+                alertThreshold: alertThreshold,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String label,
+                required String address,
+                Value<int> chainId = const Value.absent(),
+                Value<String?> rpcUrl = const Value.absent(),
+                Value<double?> alertThreshold = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => WatchWalletsCompanion.insert(
+                id: id,
+                label: label,
+                address: address,
+                chainId: chainId,
+                rpcUrl: rpcUrl,
+                alertThreshold: alertThreshold,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$WatchWalletsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $WatchWalletsTable,
+      WatchWallet,
+      $$WatchWalletsTableFilterComposer,
+      $$WatchWalletsTableOrderingComposer,
+      $$WatchWalletsTableAnnotationComposer,
+      $$WatchWalletsTableCreateCompanionBuilder,
+      $$WatchWalletsTableUpdateCompanionBuilder,
+      (
+        WatchWallet,
+        BaseReferences<_$AppDatabase, $WatchWalletsTable, WatchWallet>,
+      ),
+      WatchWallet,
+      PrefetchHooks Function()
+    >;
+typedef $$OnchainSettingsTableCreateCompanionBuilder =
+    OnchainSettingsCompanion Function({
+      Value<int> id,
+      Value<String> mode,
+      Value<double> limitPerTx,
+      Value<double> limitPerDay,
+      Value<double> maxGasGwei,
+      Value<int> autoRevertDays,
+      Value<DateTime?> autoActivatedAt,
+      Value<DateTime> updatedAt,
+    });
+typedef $$OnchainSettingsTableUpdateCompanionBuilder =
+    OnchainSettingsCompanion Function({
+      Value<int> id,
+      Value<String> mode,
+      Value<double> limitPerTx,
+      Value<double> limitPerDay,
+      Value<double> maxGasGwei,
+      Value<int> autoRevertDays,
+      Value<DateTime?> autoActivatedAt,
+      Value<DateTime> updatedAt,
+    });
+
+class $$OnchainSettingsTableFilterComposer
+    extends Composer<_$AppDatabase, $OnchainSettingsTable> {
+  $$OnchainSettingsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get mode => $composableBuilder(
+    column: $table.mode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get limitPerTx => $composableBuilder(
+    column: $table.limitPerTx,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get limitPerDay => $composableBuilder(
+    column: $table.limitPerDay,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get maxGasGwei => $composableBuilder(
+    column: $table.maxGasGwei,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get autoRevertDays => $composableBuilder(
+    column: $table.autoRevertDays,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get autoActivatedAt => $composableBuilder(
+    column: $table.autoActivatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$OnchainSettingsTableOrderingComposer
+    extends Composer<_$AppDatabase, $OnchainSettingsTable> {
+  $$OnchainSettingsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get mode => $composableBuilder(
+    column: $table.mode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get limitPerTx => $composableBuilder(
+    column: $table.limitPerTx,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get limitPerDay => $composableBuilder(
+    column: $table.limitPerDay,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get maxGasGwei => $composableBuilder(
+    column: $table.maxGasGwei,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get autoRevertDays => $composableBuilder(
+    column: $table.autoRevertDays,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get autoActivatedAt => $composableBuilder(
+    column: $table.autoActivatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$OnchainSettingsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $OnchainSettingsTable> {
+  $$OnchainSettingsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get mode =>
+      $composableBuilder(column: $table.mode, builder: (column) => column);
+
+  GeneratedColumn<double> get limitPerTx => $composableBuilder(
+    column: $table.limitPerTx,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get limitPerDay => $composableBuilder(
+    column: $table.limitPerDay,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get maxGasGwei => $composableBuilder(
+    column: $table.maxGasGwei,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get autoRevertDays => $composableBuilder(
+    column: $table.autoRevertDays,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get autoActivatedAt => $composableBuilder(
+    column: $table.autoActivatedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$OnchainSettingsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $OnchainSettingsTable,
+          OnchainSetting,
+          $$OnchainSettingsTableFilterComposer,
+          $$OnchainSettingsTableOrderingComposer,
+          $$OnchainSettingsTableAnnotationComposer,
+          $$OnchainSettingsTableCreateCompanionBuilder,
+          $$OnchainSettingsTableUpdateCompanionBuilder,
+          (
+            OnchainSetting,
+            BaseReferences<
+              _$AppDatabase,
+              $OnchainSettingsTable,
+              OnchainSetting
+            >,
+          ),
+          OnchainSetting,
+          PrefetchHooks Function()
+        > {
+  $$OnchainSettingsTableTableManager(
+    _$AppDatabase db,
+    $OnchainSettingsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$OnchainSettingsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$OnchainSettingsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$OnchainSettingsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> mode = const Value.absent(),
+                Value<double> limitPerTx = const Value.absent(),
+                Value<double> limitPerDay = const Value.absent(),
+                Value<double> maxGasGwei = const Value.absent(),
+                Value<int> autoRevertDays = const Value.absent(),
+                Value<DateTime?> autoActivatedAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => OnchainSettingsCompanion(
+                id: id,
+                mode: mode,
+                limitPerTx: limitPerTx,
+                limitPerDay: limitPerDay,
+                maxGasGwei: maxGasGwei,
+                autoRevertDays: autoRevertDays,
+                autoActivatedAt: autoActivatedAt,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> mode = const Value.absent(),
+                Value<double> limitPerTx = const Value.absent(),
+                Value<double> limitPerDay = const Value.absent(),
+                Value<double> maxGasGwei = const Value.absent(),
+                Value<int> autoRevertDays = const Value.absent(),
+                Value<DateTime?> autoActivatedAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => OnchainSettingsCompanion.insert(
+                id: id,
+                mode: mode,
+                limitPerTx: limitPerTx,
+                limitPerDay: limitPerDay,
+                maxGasGwei: maxGasGwei,
+                autoRevertDays: autoRevertDays,
+                autoActivatedAt: autoActivatedAt,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$OnchainSettingsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $OnchainSettingsTable,
+      OnchainSetting,
+      $$OnchainSettingsTableFilterComposer,
+      $$OnchainSettingsTableOrderingComposer,
+      $$OnchainSettingsTableAnnotationComposer,
+      $$OnchainSettingsTableCreateCompanionBuilder,
+      $$OnchainSettingsTableUpdateCompanionBuilder,
+      (
+        OnchainSetting,
+        BaseReferences<_$AppDatabase, $OnchainSettingsTable, OnchainSetting>,
+      ),
+      OnchainSetting,
+      PrefetchHooks Function()
+    >;
+typedef $$ContractAllowlistTableCreateCompanionBuilder =
+    ContractAllowlistCompanion Function({
+      Value<int> id,
+      required String address,
+      Value<String?> label,
+      Value<String> functions,
+      Value<DateTime> addedAt,
+    });
+typedef $$ContractAllowlistTableUpdateCompanionBuilder =
+    ContractAllowlistCompanion Function({
+      Value<int> id,
+      Value<String> address,
+      Value<String?> label,
+      Value<String> functions,
+      Value<DateTime> addedAt,
+    });
+
+class $$ContractAllowlistTableFilterComposer
+    extends Composer<_$AppDatabase, $ContractAllowlistTable> {
+  $$ContractAllowlistTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get functions => $composableBuilder(
+    column: $table.functions,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get addedAt => $composableBuilder(
+    column: $table.addedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ContractAllowlistTableOrderingComposer
+    extends Composer<_$AppDatabase, $ContractAllowlistTable> {
+  $$ContractAllowlistTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get functions => $composableBuilder(
+    column: $table.functions,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get addedAt => $composableBuilder(
+    column: $table.addedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ContractAllowlistTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ContractAllowlistTable> {
+  $$ContractAllowlistTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  GeneratedColumn<String> get functions =>
+      $composableBuilder(column: $table.functions, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get addedAt =>
+      $composableBuilder(column: $table.addedAt, builder: (column) => column);
+}
+
+class $$ContractAllowlistTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ContractAllowlistTable,
+          ContractAllowlistData,
+          $$ContractAllowlistTableFilterComposer,
+          $$ContractAllowlistTableOrderingComposer,
+          $$ContractAllowlistTableAnnotationComposer,
+          $$ContractAllowlistTableCreateCompanionBuilder,
+          $$ContractAllowlistTableUpdateCompanionBuilder,
+          (
+            ContractAllowlistData,
+            BaseReferences<
+              _$AppDatabase,
+              $ContractAllowlistTable,
+              ContractAllowlistData
+            >,
+          ),
+          ContractAllowlistData,
+          PrefetchHooks Function()
+        > {
+  $$ContractAllowlistTableTableManager(
+    _$AppDatabase db,
+    $ContractAllowlistTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ContractAllowlistTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ContractAllowlistTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ContractAllowlistTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> address = const Value.absent(),
+                Value<String?> label = const Value.absent(),
+                Value<String> functions = const Value.absent(),
+                Value<DateTime> addedAt = const Value.absent(),
+              }) => ContractAllowlistCompanion(
+                id: id,
+                address: address,
+                label: label,
+                functions: functions,
+                addedAt: addedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String address,
+                Value<String?> label = const Value.absent(),
+                Value<String> functions = const Value.absent(),
+                Value<DateTime> addedAt = const Value.absent(),
+              }) => ContractAllowlistCompanion.insert(
+                id: id,
+                address: address,
+                label: label,
+                functions: functions,
+                addedAt: addedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ContractAllowlistTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ContractAllowlistTable,
+      ContractAllowlistData,
+      $$ContractAllowlistTableFilterComposer,
+      $$ContractAllowlistTableOrderingComposer,
+      $$ContractAllowlistTableAnnotationComposer,
+      $$ContractAllowlistTableCreateCompanionBuilder,
+      $$ContractAllowlistTableUpdateCompanionBuilder,
+      (
+        ContractAllowlistData,
+        BaseReferences<
+          _$AppDatabase,
+          $ContractAllowlistTable,
+          ContractAllowlistData
+        >,
+      ),
+      ContractAllowlistData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2951,4 +4994,10 @@ class $AppDatabaseManager {
       $$MessagesTableTableManager(_db, _db.messages);
   $$TasksTableTableManager get tasks =>
       $$TasksTableTableManager(_db, _db.tasks);
+  $$WatchWalletsTableTableManager get watchWallets =>
+      $$WatchWalletsTableTableManager(_db, _db.watchWallets);
+  $$OnchainSettingsTableTableManager get onchainSettings =>
+      $$OnchainSettingsTableTableManager(_db, _db.onchainSettings);
+  $$ContractAllowlistTableTableManager get contractAllowlist =>
+      $$ContractAllowlistTableTableManager(_db, _db.contractAllowlist);
 }

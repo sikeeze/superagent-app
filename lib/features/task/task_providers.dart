@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../core/audit/audit_logger.dart';
 import '../../core/notifications/notification_service.dart';
@@ -24,9 +21,9 @@ final taskRepositoryProvider = FutureProvider<TaskRepository>((ref) async {
 });
 
 /// AuditLogger instance app (file di app data dir, S-01 compliant).
-final auditLoggerProvider = FutureProvider<AuditLogger>((ref) async {
-  final dir = await getApplicationDocumentsDirectory();
-  return AuditLogger('${dir.path}${Platform.pathSeparator}audit.log');
+/// Override di main() dengan path yang ditentukan saat startup.
+final auditLoggerProvider = Provider<AuditLogger>((ref) {
+  throw UnimplementedError('override di main()');
 });
 
 /// State daftar task (5.4).
