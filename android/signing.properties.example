@@ -1,0 +1,17 @@
+# Signing properties (jangan di-commit!)
+#
+# Salin file ini ke android/signing.properties dan isi dengan path ke
+# keystore rilis Anda. File signing.properties HARUS di luar repo (sudah
+# ada di .gitignore). Keystore juga harus di luar repo (aturan S-02).
+#
+# Buat keystore rilis:
+#   keytool -genkey -v -keystore superagent.jks -keyalg RSA -keysize 2048 \
+#     -validity 10000 -alias superagent
+#
+# Lalu build APK rilis:
+#   flutter build apk --split-per-abi --release
+
+storeFile=C:/path/ke/superagent.jks
+storePassword=***
+keyAlias=superagent
+keyPassword=***
