@@ -9,6 +9,7 @@ import '../../../app/theme.dart';
 import '../../../core/llm/anthropic.dart';
 import '../../../core/llm/openai_compat.dart';
 import '../../../core/llm/provider.dart';
+import '../../../core/security/platform_hardening.dart';
 import '../provider_config.dart';
 
 /// Create or edit a provider connection (blueprint wireframe C).
@@ -54,10 +55,15 @@ class _ProviderFormPageState extends ConsumerState<ProviderFormPage> {
     _maxTokens = TextEditingController(text: (p?.maxTokens ?? 4096).toString());
     _type = p?.type ?? ProviderType.openaiCompatible;
     _temperature = p?.temperature ?? 0.2;
+    // S-05: layar ini menampilkan/menerima API key — aktifkan FLAG_SECURE
+    // di Android supaya tidak muncul di screenshot / screen recorder.
+    PlatformHardening.setFlagSecure(true);
   }
 
   @override
   void dispose() {
+    // S-05: lepaskan FLAG_SECURE saat keluar dari layar kunci.
+    PlatformHardening.setFlagSecure(false);
     for (final c in [
       _name,
       _baseUrl,

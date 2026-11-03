@@ -1,8 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Izin minimum (Bagian 12): INTERNET untuk provider LLM & RPC.
+         Tidak ada izin storage/kontak/lokasi. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="superagent"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:usesCleartextTraffic="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"

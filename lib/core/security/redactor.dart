@@ -26,8 +26,11 @@ class Redactor {
   /// word) may follow the colon before the secret itself, so the scheme is
   /// optional whitespace-delimited filler. Dart regex has no inline `(?i)`
   /// flag, so case-insensitivity is set on the whole pattern instead.
+  /// Label umum (auth, token, key, api) supaya header map yang umum dipakai
+  /// (mis. `Auth: Bearer tok_live_...` di Dio) juga ter-redaksi (S-03).
   static final RegExp _bearer = RegExp(
-    r'(?:bearer|x-api-key|authorization)\s*[:=]\s*(?:bearer\s+)?'
+    r'(?:bearer|x-api-key|authorization|auth|token|api[_-]?key|key)\s*[:=]\s*'
+    r'(?:bearer\s+)?'
     r'[A-Za-z0-9_\-.,=]{20,}',
     caseSensitive: false,
   );

@@ -19,6 +19,8 @@ import 'skill_manifest.dart';
 /// - S-30: skill luar dianggap tidak tepercaya sampai pengguna meninjau.
 /// - S-32: SHA-256 seluruh isi; perubahan setelah disetujui memicu
 ///   persetujuan ulang.
+/// - S-25: nama skill divalidasi — menolak path traversal (`..`, `/`,
+///   `\`, drive) supaya operasi file tetap di dalam [rootDir].
 class SkillStore {
   SkillStore(this.rootDir);
 
@@ -31,8 +33,26 @@ class SkillStore {
     }
   }
 
-  /// Lokasi folder satu skill.
-  Directory dirFor(String name) => Directory('${rootDir.path}/$name');
+  /// Validasi nama skill (S-25: pencegahan path traversal).
+  /// Nama yang valid hanya boleh berisi huruf, angka, `_`, `-`, dan `.`
+  /// di awal/posisi mana pun, tetapi TIDAK boleh `..` atau separator path.
+  static bool isValidName(String name) {
+    if (name.isEmpty || name.length > 64) return false;
+    if (name.contains('..')) return false;
+    if (name.contains('/') || name.contains('\\')) return false;
+    if (name.contains(':')) return false; // drive letter (C:)
+    // Karakter yang valid untuk nama folder skill.
+    return RegExp(r'^[A-Za-z0-9][A-Za-z0-9_.\-]*$').hasMatch(name);
+  }
+
+  /// Lokasi folder satu skill. Melempar [ArgumentError] bila nama
+  /// mengandung pola path traversal (S-25).
+  Directory dirFor(String name) {
+    if (!isValidName(name)) {
+      throw ArgumentError('Nama skill tidak valid (S-25): $name');
+    }
+    return Directory('${rootDir.path}/$name');
+  }
 
   /// Daftar nama skill yang terpasang.
   Future<List<String>> listNames() async {
