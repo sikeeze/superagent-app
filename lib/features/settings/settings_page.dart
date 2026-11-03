@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/design_tokens.dart';
 import '../../app/theme.dart';
+import '../../core/services/config_export_service.dart';
+import '../../core/security/secure_store.dart';
 import '../../shared/widgets/app_card.dart';
 import '../../shared/widgets/status_pill.dart';
 import '../provider/provider_settings_page.dart';
+import 'export_import_dialogs.dart';
 
 /// Pengaturan (design PDF: settings index).
 ///
 /// Menampilkan status keamanan + jalan pintas ke konfigurasi provider.
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = appColors(context);
     return ListView(
       padding: const EdgeInsets.all(DesignTokens.gridGap),
@@ -44,6 +48,33 @@ class SettingsPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => const ProviderSettingsPage(),
                   ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: DesignTokens.gridGap),
+        AppCard(
+          title: 'Cadangan (S-04)',
+          subtitle: 'Ekspor / impor konfigurasi terenkripsi',
+          child: Column(
+            children: [
+              SettingsTile(
+                icon: Icons.upload_outlined,
+                title: 'Ekspor konfigurasi',
+                subtitle: 'Profil + API key → file terenkripsi',
+                onTap: () => ExportImportDialogs.showExport(
+                  context,
+                  ConfigExportService(SecureStore()),
+                ),
+              ),
+              SettingsTile(
+                icon: Icons.download_outlined,
+                title: 'Impor konfigurasi',
+                subtitle: 'Pulihkan dari file export',
+                onTap: () => ExportImportDialogs.showImport(
+                  context,
+                  ConfigExportService(SecureStore()),
                 ),
               ),
             ],

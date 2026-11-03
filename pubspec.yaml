@@ -27,6 +27,9 @@ dependencies:
   supabase_flutter: 2.9.1
   quickjs_engine: 0.1.6
   crypto: 3.0.6
+  # Export/impor konfigurasi terenkripsi (S-04): AES-256-GCM + PBKDF2.
+  # Pure Dart, tidak ada kode native -> aman dari crash AOT.
+  cryptography: ^2.7.0
 
   # -------------------------------------------------------------------
   # Later phases stay commented until used (rule P-15: no unused deps).
