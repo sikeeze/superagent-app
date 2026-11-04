@@ -32,3 +32,4 @@ coverage/
 android/signing.properties
 *.jks
 *.keystore
+.parts/
