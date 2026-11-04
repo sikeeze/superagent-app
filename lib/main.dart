@@ -13,6 +13,7 @@ import 'core/security/bip39_wordlist.dart';
 import 'data/database/app_database.dart';
 import 'data/repositories/crypto_repository.dart';
 import 'data/repositories/task_repository.dart';
+import 'features/settings/app_lock_providers.dart';
 import 'features/task/task_providers.dart';
 import 'features/wallet/wallet_providers.dart';
 
@@ -48,12 +49,22 @@ void main() async {
   final auditPath =
       '${(await getApplicationDocumentsDirectory()).path}${Platform.pathSeparator}audit.log';
 
+  // Fase 11: kunci aplikasi (6.8). load() memeriksa secure storage;
+  // app mulai terkunci bila PIN sebelumnya diset.
+  final appLock = await initAppLock();
+
   runApp(
     ProviderScope(
       overrides: [
         if (authService != null)
           authServiceProxyProvider.overrideWithValue(authService),
         auditLoggerProvider.overrideWithValue(AuditLogger(auditPath)),
+        appLockManagerProvider.overrideWithValue(appLock),
+        appLockStateProvider.overrideWith((ref) {
+          final n = AppLockNotifier();
+          if (appLock.isLocked) n.show();
+          return n;
+        }),
         taskNotifierProvider.overrideWith((ref) {
           final notifier = TaskNotifier(
             TaskRepository(db),

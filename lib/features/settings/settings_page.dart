@@ -8,7 +8,9 @@ import '../../core/security/secure_store.dart';
 import '../../shared/widgets/app_card.dart';
 import '../../shared/widgets/status_pill.dart';
 import '../provider/provider_settings_page.dart';
+import 'app_lock_settings_card.dart';
 import 'export_import_dialogs.dart';
+import 'app_lock_providers.dart';
 
 /// Pengaturan (design PDF: settings index).
 ///
@@ -79,6 +81,12 @@ class SettingsPage extends ConsumerWidget {
               ),
             ],
           ),
+        ),
+        const SizedBox(height: DesignTokens.gridGap),
+        AppCard(
+          title: 'Kunci aplikasi (6.8)',
+          subtitle: 'PIN + auto-lock + proteksi brute-force',
+          child: AppLockSettingsCard(manager: ref.read(appLockManagerProvider)),
         ),
         const SizedBox(height: DesignTokens.gridGap),
         AppCard(

@@ -5,6 +5,9 @@ import '../features/auth/check_email_page.dart';
 import '../features/auth/login_page.dart';
 import '../features/auth/signup_page.dart';
 import '../features/auth/welcome_page.dart';
+import '../features/settings/app_lock_providers.dart';
+import '../features/settings/app_lock_screen.dart';
+import '../core/security/app_lock_manager.dart';
 import 'app_shell.dart';
 import 'theme.dart';
 
@@ -14,11 +17,40 @@ import 'theme.dart';
 /// Home. A-17: tidak ada login wall — /home tetap dapat ditempuh tanpa
 /// akun. Implementasi AuthService dipasang via override ProviderScope
 /// di main() setelah initSupabase() selesai.
-class SuperagentApp extends ConsumerWidget {
+class SuperagentApp extends ConsumerStatefulWidget {
   const SuperagentApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SuperagentApp> createState() => _SuperagentAppState();
+}
+
+/// Fase 11 (6.8): pantau aktivitas pengguna untuk reset timer auto-lock.
+class _SuperagentAppState extends ConsumerState<SuperagentApp>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // 6.8: kunci saat app masuk background (pengguna meninggalkan app).
+    final manager = ref.read(appLockManagerProvider);
+    if (state == AppLifecycleState.paused && manager.isEnabled) {
+      manager.lock();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final locked = ref.watch(appLockStateProvider);
     return MaterialApp(
       title: 'Superagent',
       debugShowCheckedModeBanner: false,
@@ -26,6 +58,23 @@ class SuperagentApp extends ConsumerWidget {
       darkTheme: AppTheme.dark(context),
       initialRoute: '/',
       onGenerateRoute: _onGenerateRoute,
+      // 6.8: layar kunci menutupi seluruh app bila aktif. Dipasang via
+      // builder (di atas Navigator) supaya tidak bentrok initialRoute.
+      builder: (context, child) {
+        if (!locked) {
+          // Reset timer auto-lock pada interaksi pengguna (6.8).
+          return _ActivityReporter(
+            manager: ref.read(appLockManagerProvider),
+            child: child ?? const SizedBox.shrink(),
+          );
+        }
+        return AppLockScreen(
+          manager: ref.read(appLockManagerProvider),
+          onUnlocked: () {
+            ref.read(appLockStateProvider.notifier).hide();
+          },
+        );
+      },
     );
   }
 
@@ -65,6 +114,24 @@ class SuperagentApp extends ConsumerWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// 6.8: laporkan setiap pointer down ke [AppLockManager.reportUserActivity]
+/// untuk mereset timer auto-lock.
+class _ActivityReporter extends StatelessWidget {
+  const _ActivityReporter({required this.manager, required this.child});
+
+  final AppLockManager manager;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerDown: (_) => manager.reportUserActivity(),
+      onPointerSignal: (_) => manager.reportUserActivity(),
+      child: child,
     );
   }
 }
